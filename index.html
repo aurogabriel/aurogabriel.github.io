@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auro Aramides — Engineering Portfolio</title>
+<meta name="description" content="Embedded firmware, motor drives, power electronics and hardware built by Auro Aramides, Electrical Engineer.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Auro Aramides</h1>
+    <p class="tagline">Electrical Engineer. I design boards, write the bare-metal firmware that runs on them, and build the test benches that prove they work.</p>
+    <nav class="links">
+      <a href="resume.pdf">Resume (PDF)</a>
+      <a href="https://www.linkedin.com/in/auro-gabriel">LinkedIn</a>
+      <a href="https://github.com/aurogabriel">GitHub</a>
+      <a href="mailto:emaildeauro@gmail.com">emaildeauro@gmail.com</a>
+    </nav>
+    <ul class="toc">
+      <li><a href="#robot">Motor drives and power board for a service robot</a></li>
+      <li><a href="#heightcar">Stock Car sensor system</a></li>
+      <li><a href="#induction">Induction-motor FOC on a C2000 DSP</a></li>
+      <li><a href="#boost">Boost converter</a></li>
+      <li><a href="#braille">Braille cell driver</a></li>
+      <li><a href="#hil">Hardware-in-the-loop for ultrasonic meters</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============================================================ -->
+<article class="project" id="robot">
+  <div class="head">
+    <h2>BLDC hub-motor drives and power management for a mobile service robot</h2>
+    <p class="meta">Robovisor · 2023 – 2025 · hardware + firmware</p>
+  </div>
+  <figure class="lead">
+    <a href="img/full/robot-full.jpg" data-gallery data-caption="The service robot the drives were built for"><img src="img/thumb/robot-full.jpg" alt="Mobile service robot with tall mast and differential-drive base" loading="lazy"></a>
+  </figure>
+  <div class="body">
+    <p>For a differential-drive service robot I designed the two BLDC motor driver boards and the robot's power-management board, and wrote the real-time Field-Oriented Control firmware on STM32F4. I modeled the motor in Simulink and used the model to design the controller. Then I implemented it in C/C++ and tested it on the bench, first with the hub motors clamped on a fixture and under mechanical load on rollers, then in the robot.</p>
+    <ul>
+      <li><b>Motor drivers:</b> three-phase power stage, gate drive, phase-current sensing and MCU on one board per motor. I prototyped the current-sense front end on a breadboard with a TI INA differential amplifier before committing it to the PCB.</li>
+      <li><b>Power-management board:</b> battery charging and consumption management, overcurrent and reverse-polarity protection, ideal-diode power path and the regulated rails for the robot's subsystems. Tested on a lead-acid battery and an electronic load.</li>
+      <li><b>Bring-up and validation:</b> hands-on assembly, debugging and signal-integrity checks with oscilloscope and logic analyzer.</li>
+    </ul>
+    <p class="tags"><span>STM32F4</span><span>FOC</span><span>C/C++</span><span>MicroPython</span><span>Simulink</span><span>Fusion360 Electronics</span><span>Power electronics</span></p>
+  </div>
+  <div class="gallery">
+    <a href="img/full/drivers-in-robot.jpg" data-gallery data-caption="Two driver boards installed in the robot base"><img src="img/thumb/drivers-in-robot.jpg" alt="Two driver boards installed in the robot base" loading="lazy"></a>
+    <a href="img/full/driver-assembled.jpg" data-gallery data-caption="Assembled driver board on the bench"><img src="img/thumb/driver-assembled.jpg" alt="Assembled driver board held in hand" loading="lazy"></a>
+    <a href="img/full/driver-render.jpg" data-gallery data-caption="Driver board, 3D model"><img src="img/thumb/driver-render.jpg" alt="Driver board 3D render" loading="lazy"></a>
+    <a href="img/full/driver-layout.jpg" data-gallery data-caption="Dual motor driver layout"><img src="img/thumb/driver-layout.jpg" alt="Motor driver PCB layout" loading="lazy"></a>
+    <a href="img/full/pmsm-simulink.png" data-gallery data-caption="Simulink motor model (dq electrical loop, nonlinear mechanical loop) used to design the controller"><img src="img/thumb/pmsm-simulink.png" alt="Simulink motor model" loading="lazy"></a>
+    <a href="img/full/hub-motor-pair.jpg" data-gallery data-caption="FOC firmware test on both hub motors"><img src="img/thumb/hub-motor-pair.jpg" alt="Two hub motors on the bench" loading="lazy"></a>
+    <a href="img/full/hub-motor-bench.jpg" data-gallery data-caption="Hub motors on the test fixture, driven by the board"><img src="img/thumb/hub-motor-bench.jpg" alt="Hub motors on test fixture with driver board" loading="lazy"></a>
+    <a href="img/full/hub-motor-bench-2.jpg" data-gallery data-caption="Hub motor bench test"><img src="img/thumb/hub-motor-bench-2.jpg" alt="Hub motor bench test with supply and oscilloscope" loading="lazy"></a>
+    <a href="img/full/hub-motor-rollers.jpg" data-gallery data-caption="BLDC hub motor running under mechanical load on rollers"><img src="img/thumb/hub-motor-rollers.jpg" alt="Hub motor running on a roller rig" loading="lazy"></a>
+    <a href="img/full/current-sense-proto.jpg" data-gallery data-caption="Current-sense front end prototype: TI INA differential amplifier"><img src="img/thumb/current-sense-proto.jpg" alt="Breadboard prototype with a differential amplifier on an SOIC adapter" loading="lazy"></a>
+    <a href="img/full/current-sense-proto-2.jpg" data-gallery data-caption="Current-sense prototype with power shunt resistors"><img src="img/thumb/current-sense-proto-2.jpg" alt="Breadboard current-sense test with power resistors" loading="lazy"></a>
+    <a href="img/full/power-board-chassis.jpg" data-gallery data-caption="Power-management board in the robot chassis"><img src="img/thumb/power-board-chassis.jpg" alt="Power board mounted in robot chassis" loading="lazy"></a>
+    <a href="img/full/power-board-detail.jpg" data-gallery data-caption="Power-management board, detail"><img src="img/thumb/power-board-detail.jpg" alt="Power board detail" loading="lazy"></a>
+    <a href="img/full/power-board-battery-test.jpg" data-gallery data-caption="Power-board test on a lead-acid battery"><img src="img/thumb/power-board-battery-test.jpg" alt="Board on bench connected to a battery and supply" loading="lazy"></a>
+    <a href="img/full/power-board-eload-test.jpg" data-gallery data-caption="Power-board test with an electronic load"><img src="img/thumb/power-board-eload-test.jpg" alt="Board tested with an electronic load" loading="lazy"></a>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project" id="heightcar">
+  <div class="head">
+    <h2>Sensor system for Stock Car Brasil</h2>
+    <p class="meta">Audace Tech · 2025 · project manager + firmware + hardware validation</p>
+  </div>
+  <figure class="lead">
+    <a href="img/full/heightcar-sensor.jpg" data-gallery data-caption="Sensor board with cable, reading in millimeters"><img src="img/thumb/heightcar-sensor.jpg" alt="Sensor board with sensor cable and OLED reading in millimeters" loading="lazy"></a>
+  </figure>
+  <div class="body">
+    <p>I managed a measurement project for a Stock Car Brasil team, from requirements with the client to delivery at their race-car assembly shop. I also wrote the real-time STM32 firmware in C/C++ and validated the hardware. The system has a hub board and sensor boards that talk over RS-485 and show the reading in millimeters on a local display. A Python tool does the analysis on the laptop side.</p>
+    <ul>
+      <li>Owned requirements, budget, schedule and delivery directly with the client.</li>
+      <li>Firmware for the sensor and hub boards; lab validation before delivery.</li>
+    </ul>
+    <p class="tags"><span>STM32</span><span>C/C++</span><span>RS-485</span><span>Hardware validation</span><span>Project management</span><span>Python</span></p>
+  </div>
+  <div class="gallery">
+    <a href="img/full/heightcar-board.jpg" data-gallery data-caption="Hub board"><img src="img/thumb/heightcar-board.jpg" alt="Hub board with OLED display" loading="lazy"></a>
+    <a href="img/full/stockcar-delivery.jpg" data-gallery data-caption="Delivery day at the team's race-car assembly shop"><img src="img/thumb/stockcar-delivery.jpg" alt="Auro next to Stock Car race cars" loading="lazy"></a>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project" id="induction">
+  <div class="head">
+    <h2>Field-Oriented Control of induction motors on a TI C2000 DSP</h2>
+    <p class="meta">Lamotriz Laboratory, Federal University of Ceará · 2022 – 2024 · undergraduate research</p>
+  </div>
+  <figure class="lead">
+    <a href="img/full/inverter-cabinet.jpg" data-gallery data-caption="Inverter cabinet: DC link, IPM board, control"><img src="img/thumb/inverter-cabinet.jpg" alt="Inverter mounted inside an enclosure" loading="lazy"></a>
+  </figure>
+  <div class="body">
+    <p>Vector control of induction machines on a TMS320F28379D driving a three-phase inverter. I modeled the drive in Simulink, generated part of the code with Embedded Coder and wrote the current and speed loops, PWM and signal acquisition in C, then tested everything on a motor–inverter bench.</p>
+    <ul>
+      <li>Designed the PCB of the three-phase inverter, built around an intelligent power module, and the power-management circuitry around it.</li>
+      <li>Current and speed loops, PWM modulation, ADC sampling synchronized to the PWM.</li>
+    </ul>
+    <p class="tags"><span>TMS320F28379D</span><span>FOC</span><span>Embedded Coder</span><span>C</span><span>Power electronics</span></p>
+  </div>
+  <div class="gallery">
+    <a href="img/full/ipm-inverter-layout.jpg" data-gallery data-caption="IPM-based three-phase inverter, PCB layout"><img src="img/thumb/ipm-inverter-layout.jpg" alt="PCB layout of an IPM-based three-phase inverter" loading="lazy"></a>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project no-gallery" id="boost">
+  <div class="head">
+    <h2>Boost converter</h2>
+    <p class="meta">Federal University of Ceará · power electronics</p>
+  </div>
+  <figure class="lead">
+    <a href="img/full/boost-bench.jpg" data-gallery data-caption="Boost converter bench test"><img src="img/thumb/boost-bench.jpg" alt="Lab bench with power supplies, oscilloscope and function generator" loading="lazy"></a>
+  </figure>
+  <div class="body">
+    <p>I designed a boost converter and characterized it on the bench with an oscilloscope (voltage and current probes), a function generator and bench supplies.</p>
+    <p class="tags"><span>Power electronics</span><span>DC-DC</span><span>Lab instrumentation</span></p>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project text-only" id="braille">
+  <div class="head">
+    <h2>Driver board and firmware for a refreshable Braille cell</h2>
+    <p class="meta">SENAI Institute of Technology · 2025 · no photos (NDA)</p>
+  </div>
+  <div class="body">
+    <p>For an assistive Braille reader for visually impaired users, I designed the ESP32-based PCB that drives a refreshable Braille cell and wrote the cell's driver firmware. I also wrote the technical specification, selected the components and debugged the hardware with the fabrication process.</p>
+    <p class="tags"><span>ESP32</span><span>PCB (EasyEDA)</span><span>Driver firmware</span><span>High-voltage drive</span></p>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project text-only" id="hil">
+  <div class="head">
+    <h2>Hardware-in-the-loop benches for ultrasonic water meters</h2>
+    <p class="meta">Current role · 2026 – present · no photos (NDA)</p>
+  </div>
+  <div class="body">
+    <p>I build STM32G4 benches that emulate ultrasonic transducer signals in real time, so the production meter firmware can be driven through repeatable flow and temperature setpoints without a water rig. With them I reproduced intermittent field failures deterministically and traced each one to its root cause in the firmware.</p>
+    <ul>
+      <li>Production programmer for a 16-bit chip over 2-wire JTAG (Spy-Bi-Wire): STM32 firmware plus a batch station with per-board traceability.</li>
+      <li>4-wire PT100 temperature reference built on the STM32G4's internal op-amps and ADC, for multi-day unattended thermal tests.</li>
+      <li>Bare-metal drivers on the meter's Cortex-M0: SPI time-to-digital converter, I²C EEPROM, interrupt-driven UART.</li>
+    </ul>
+    <p class="tags"><span>STM32G4</span><span>HIL</span><span>Bare-metal C</span><span>Python test automation</span></p>
+  </div>
+</article>
+
+<!-- ============================================================ -->
+<article class="project text-only" id="other">
+  <div class="head">
+    <h2>Other board work</h2>
+    <p class="meta">Layouts from other hardware projects</p>
+  </div>
+  <div class="gallery">
+    <a href="img/full/esp32-layout.jpg" data-gallery data-caption="ESP32-based board, layout detail"><img src="img/thumb/esp32-layout.jpg" alt="ESP32 board PCB layout detail" loading="lazy"></a>
+    <a href="img/full/usb-power-board.png" data-gallery data-caption="USB power-delivery board, 3D model"><img src="img/thumb/usb-power-board.png" alt="USB power-delivery board 3D render" loading="lazy"></a>
+  </div>
+</article>
+
+</main>
+
+<footer class="wrap">
+  <p>Photos are my own, from the projects above. Work under NDA is described without images or proprietary detail.</p>
+</footer>
+
+<div class="lightbox" hidden>
+  <button class="close" aria-label="Close">×</button>
+  <button class="prev" aria-label="Previous">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="next" aria-label="Next">›</button>
+</div>
+
+<script src="lightbox.js"></script>
+</body>
+</html>
